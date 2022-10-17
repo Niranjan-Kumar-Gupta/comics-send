@@ -1,61 +1,69 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 
-function sendMail($email,$v_code)
+function sendMail($email,$comic)
 {
-    // $to = $email;
-    // $subject =  'Email verifaction form niranjan web dev';
-    
-    // $message = "<b>This is HTML message.</b>";
-    // $message .= "<h1>This is headline.</h1>";
-    
-    // $header = "From:niranjank.ug19.ph@nitp.ac.in \r\n";
    
-    // $retval = mail($to,$subject,$message,$header);
-    
-    // if( $retval == true ) {
-    //     return true;
-    // }else {
-    //     return false;
-    // }
-
-
-    require ('PHPMailer/Exception.php');
-    require ('PHPMailer/PHPMailer.php');
-    require ('PHPMailer/SMTP.php');
-    $mail = new PHPMailer(true);
-
     try {
+        $to = $email;
+        $subject =  'comics';
+        
+        $message = "<b>Here is comic story for you</b>";
+        $message .= "<h1>".$comic['title']."</h1>";
+        $message .= '<img src="'.$comic['img'].'"/>';
+        $message .= "<br><h1>if you want to unsubscribe then click the link ";
+        $message .= "<a href='https://comics-sender.000webhostapp.com/unsubscribe.php?email=$email'>link</a></h1>";
+        $header = "From:Niranjan comics <niranjank.ug19.ph@nitp.ac.in> \r\n";
+        $header .= "MIME-Version: 1.0\r\n";
+        $header .= "Content-Type: text/html; charset=UTF-8\r\n";
 
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-        $mail->SMTPAuth   =  true;                                   //Enable SMTP authentication
-        $mail->Username   = 'niranjank.ug19.ph@nitp.ac.in';                     //SMTP username
-        $mail->Password   = 'Interval@#12345';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-        $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-    
-        //Recipients
-        $mail->setFrom('niranjank.ug19.ph@nitp.ac.in', 'Niranjan web dev');
-        $mail->addAddress($email);     //Add a recipient
-       
-        //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject =  'Email verifaction form niranjan web dev';
-        $mail->Body    =  "Thanks for register!
-                           click the link to verify the email address
-                           <a href='http://localhost/comics/verify.php?email=$email&v_code=$v_code'>Verify</a>";
-      
-        $mail->send();
+        $retval = mail($to,$subject,$message,$header);
         return true;
-    } catch (Exception $e) {
+    } catch (Throwable $th) {
         return false;
     }
 }
 
-sendMail('guptaniranjan8896069078@gmail.com','nhhhhhhhyuy');
 
+$conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
+$sql = "SELECT * FROM users WHERE is_verified='1'";
+$result = mysqli_query($conn,$sql) or die("query unsuccessfull");
+
+if ($result) {
+    if (mysqli_num_rows($result)>0) {
+         $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+         if ($users) {
+            foreach($users as $user){
+                print_r($user['email']);
+            }
+          
+                $random_num =  rand(1,1000);
+                $url = 'https://xkcd.com/'.$random_num.'/info.0.json';
+                $response = file_get_contents($url);
+                $comics = json_decode($response,true);
+                print_r($comics); 
+                echo $random_num; 
+                print_r($comics['transcript']); 
+                $is_mail = sendMail($user['email'],$comics);
+               
+         }
+         else{
+            echo"
+                <script>
+                alert('user already verifeid');
+                window.location.href='index.php';
+                </script>
+            ";
+         }
+    }
+}else{
+    echo"
+    <script>
+       alert('Internal Server Error');
+       window.location.href='index.php';
+    </script>
+   ";
+}
+
+mysqli_close($conn);
 ?>

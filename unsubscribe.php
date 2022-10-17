@@ -1,23 +1,24 @@
 <?php
 
+
 $email = $_GET['email'];
 $conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
 
-if (isset($_GET['email']) && isset($_GET['v_code'])) {
+
+if (isset($_GET['email'])) {
     {
-        $sql = "SELECT * FROM users WHERE email='{$_GET['email']}' AND verification_code='{$_GET['v_code']}'";
+        $sql = "SELECT * FROM users WHERE email='{$_GET['email']}'";
         $result = mysqli_query($conn,$sql) or die("query unsuccessfull");
         if ($result) {
             if (mysqli_num_rows($result)==1) {
                  $result_fetch = mysqli_fetch_assoc($result);
-                 if ($result_fetch['is_verified']==0) {
-                    $update = "UPDATE users SET `is_verified`='1' WHERE email='{$email}'";
-                    if (mysqli_query($conn,$update)) {
-                           
+                 if ($result_fetch['is_verified']==1) {
+                    $del = "DELETE FROM users WHERE email='{$email}'";
+                    if (mysqli_query($conn,$del)) {
                            
                         echo"
                         <script>
-                        alert('email verify sucessfull');
+                        alert('unsubscribed sucessfully');
                         window.location.href='index.php';
                         </script>
                     ";
@@ -26,7 +27,7 @@ if (isset($_GET['email']) && isset($_GET['v_code'])) {
                  else{
                     echo"
                         <script>
-                        alert('user already verifeid');
+                        alert('user unsubscribed already');
                         window.location.href='index.php';
                         </script>
                     ";
@@ -45,4 +46,5 @@ if (isset($_GET['email']) && isset($_GET['v_code'])) {
 }
 
 mysqli_close($conn);
+
 ?>
