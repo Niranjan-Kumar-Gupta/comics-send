@@ -1,9 +1,8 @@
 <?php 
  include 'header.php'
- //COMICSroot@12345
 ?>
  <div class="container">
- <h4>this is a basic comics sender application </h4>
+ <h4>this is a basic comics sender application...</h4>
 <div class="email-container">
     <form class="from-input" action="savedata.php" method="post">
         <h1>Email</h1>

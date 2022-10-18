@@ -1,7 +1,7 @@
 <?php
 
 $email = $_GET['email'];
-$conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
+$conn = mysqli_connect("localhost","root","password","database_name") or die("connection failed");
 
 if (isset($_GET['email']) && isset($_GET['v_code'])) {
     {
@@ -12,9 +12,7 @@ if (isset($_GET['email']) && isset($_GET['v_code'])) {
                  $result_fetch = mysqli_fetch_assoc($result);
                  if ($result_fetch['is_verified']==0) {
                     $update = "UPDATE users SET `is_verified`='1' WHERE email='{$email}'";
-                    if (mysqli_query($conn,$update)) {
-                           
-                           
+                    if (mysqli_query($conn,$update)) {                          
                         echo"
                         <script>
                         alert('email verify sucessfull');

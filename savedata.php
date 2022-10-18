@@ -6,19 +6,20 @@ function sendMail($email,$v_code)
 {
 
    try{
-        $to = $email;
-       $subject =  'Email verifaction form niranjan web dev';
+         $to = $email;
+         $subject =  'Email verifaction from poornima web dev';
     
-      $message = "
+         $message = "
                Thanks for register!
                click the link to verify the email address
-               https://comics-sender.000webhostapp.com/verify.php?email=$email&v_code=$v_code
-               ";
+               https://comics-send.000webhostapp.com/verify.php?email=$email&v_code=$v_code";
     
   
-        $header = "From:niranjank.ug19.ph@nitp.ac.in \r\n";
-       // $header .= "MIME-Version: 1.0\r\n";
-        //$header .= "Content-Type: text/html; charset=UTF-8\r\n";
+         $header = "MIME-Version: 1.0\r\n";
+         $header .= "Content-Type: text/html; charset=UTF-8\r\n";
+         $header .= "From:poornima comics <email> \r\n".
+                   "Reply-To: .$to." . "\r\n" .
+                   "X-Mailer: PHP/" . phpversion();
 
    
     $retval = mail($to,$subject,$message,$header);
@@ -31,7 +32,7 @@ function sendMail($email,$v_code)
 
 $email = $_POST['email'];
 $verificationCode = bin2hex(random_bytes(16));
-$conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
+$conn = mysqli_connect("localhost","root","password","database_name") or die("connection failed");
 $sql = "SELECT * FROM users WHERE email='{$email}'";
 $result = mysqli_query($conn,$sql) or die("query unsuccessfull");
 

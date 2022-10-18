@@ -12,11 +12,14 @@ function sendMail($email,$comic)
         $message .= "<h1>".$comic['title']."</h1>";
         $message .= '<img src="'.$comic['img'].'"/>';
         $message .= "<br><h1>if you want to unsubscribe then click the link ";
-        $message .= "<a href='https://comics-sender.000webhostapp.com/unsubscribe.php?email=$email'>link</a></h1>";
-        $header = "From:Niranjan comics <niranjank.ug19.ph@nitp.ac.in> \r\n";
-        $header .= "MIME-Version: 1.0\r\n";
+        $message .= "<a href='https://comics-send.000webhostapp.com/unsubscribe.php?email=$email'>link</a></h1>";
+        $header = "MIME-Version: 1.0\r\n";
         $header .= "Content-Type: text/html; charset=UTF-8\r\n";
 
+        $header .= "From:poornima comics <email> \r\n".
+                   "Reply-To: .$to." . "\r\n" .
+                   "X-Mailer: PHP/" . phpversion();
+      
         $retval = mail($to,$subject,$message,$header);
         return true;
     } catch (Throwable $th) {
@@ -25,7 +28,7 @@ function sendMail($email,$comic)
 }
 
 
-$conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
+$conn = mysqli_connect("localhost","root","password","database_name") or die("connection failed");
 $sql = "SELECT * FROM users WHERE is_verified='1'";
 $result = mysqli_query($conn,$sql) or die("query unsuccessfull");
 

@@ -1,9 +1,7 @@
 <?php
 
-
 $email = $_GET['email'];
-$conn = mysqli_connect("localhost","id19720410_root","COMICSroot@12345","id19720410_comics") or die("connection failed");
-
+$conn = mysqli_connect("localhost","root","password","database_name") or die("connection failed");
 
 if (isset($_GET['email'])) {
     {
