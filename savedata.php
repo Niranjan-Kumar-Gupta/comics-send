@@ -12,17 +12,19 @@ function sendMail($email,$v_code)
          $message = "
                Thanks for register!
                click the link to verify the email address
-               https://comics-send.000webhostapp.com/verify.php?email=$email&v_code=$v_code";
+               http://13.114.23.149/verify.php?email=$email&v_code=$v_code";
     
   
          $header = "MIME-Version: 1.0\r\n";
          $header .= "Content-Type: text/html; charset=UTF-8\r\n";
-         $header .= "From:poornima comics <email> \r\n".
+         $header .= "From:poornima comics <niranjank.ug19.ph@nitp.ac.in> \r\n".
                    "Reply-To: .$to." . "\r\n" .
                    "X-Mailer: PHP/" . phpversion();
+         $param     = '-f<niranjank.ug19.ph@nitp.ac.in>';
+
 
    
-    $retval = mail($to,$subject,$message,$header);
+    $retval = mail($to,$subject,$message,$header,$param);
       return true;
    }catch(Exception $e){
          return false;
