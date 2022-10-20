@@ -12,15 +12,16 @@ function sendMail($email,$comic)
         $message .= "<h1>".$comic['title']."</h1>";
         $message .= '<img src="'.$comic['img'].'"/>';
         $message .= "<br><h1>if you want to unsubscribe then click the link ";
-        $message .= "<a href='https://comics-send.000webhostapp.com/unsubscribe.php?email=$email'>link</a></h1>";
-        $header = "MIME-Version: 1.0\r\n";
-        $header .= "Content-Type: text/html; charset=UTF-8\r\n";
-
-        $header .= "From:poornima comics <email> \r\n".
+        $message .= "<a href='http://13.114.23.149/unsubscribe.php?email=$email'>link</a></h1>";
+       
+         $header = "MIME-Version: 1.0\r\n";
+         $header .= "Content-Type: text/html; charset=UTF-8\r\n";
+         $header .= "From:poornima comics <niranjank.ug19.ph@nitp.ac.in> \r\n".
                    "Reply-To: .$to." . "\r\n" .
                    "X-Mailer: PHP/" . phpversion();
+         $param     = '-f<niranjank.ug19.ph@nitp.ac.in>';
       
-        $retval = mail($to,$subject,$message,$header);
+        $retval = mail($to,$subject,$message,$header,$param);
         return true;
     } catch (Throwable $th) {
         return false;
