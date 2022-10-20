@@ -32,7 +32,7 @@ function sendMail($email,$v_code)
 
 $email = $_POST['email'];
 $verificationCode = bin2hex(random_bytes(16));
-$conn = mysqli_connect("localhost","root","password","database_name") or die("connection failed");
+$conn = mysqli_connect("localhost","root","password","email") or die("connection failed");
 $sql = "SELECT * FROM users WHERE email='{$email}'";
 $result = mysqli_query($conn,$sql) or die("query unsuccessfull");
 
