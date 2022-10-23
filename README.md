@@ -20,7 +20,7 @@ In this example, we have some files and folder that you need to concentrate abou
 - unsubcribe.php
 
 ### index.php
-This file will contains `html` and `javascript` code for **[collecting a visitor's email and send ]**
+This file will contains html and javascript code for collecting a visitor's email and send 
 
 ### savedata.php
 
