@@ -28,7 +28,7 @@ This file will contains database related information like dbname,user,password a
 ### savedata.php
 
 In this file we will save the in database.First we will connect to the database and check this email is already register or not if email is already register then we will give a notification to the user that email is already register.
-if email is not register then we generate a verify token and save email and verify token in database for verification of email. and send email to verify email address.
+if email is not register then we generate a verify token and save email and verify token in database for verification of email. and send email for verification to the  email address.
 
 ### verify.php
 
