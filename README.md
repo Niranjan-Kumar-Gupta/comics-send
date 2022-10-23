@@ -5,7 +5,7 @@
 For running this example, you need to clone this project in your local machine
 
 ```
-git clone[https://github.com/Niranjan-Kumar-Gupta/comics-send](https://github.com/Niranjan-Kumar-Gupta/comics-send/)
+git clone https://github.com/Niranjan-Kumar-Gupta/comics-send
 ```
 
 
